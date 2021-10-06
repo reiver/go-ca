@@ -1,0 +1,56 @@
+package krnl
+
+import (
+	"fmt"
+)
+
+// Scan assigns a value to a kernel.
+//
+// Scan accepted the following types for 'src':
+//
+// • []byte
+//
+// • string
+//
+// Scan also makes krnl.Kernel fit the sql.Scanner interface.
+//
+// This is how one might use it:
+//
+//	var kernel krnl.Kernel
+//	
+//	// ...
+//	
+//	var p []byte = []byte{
+//		0x95, 0xde, 0xcc, 0x72, 0xf0, 0xa5, 0x0a, 0xe4,
+//		0xd9, 0xd5, 0x37, 0x8e, 0x1b, 0x22, 0x52, 0x58,
+//		0x7c, 0xfc, 0x71, 0x97, 0x7e, 0x43, 0x29, 0x2c,
+//		0x8f, 0x1b, 0x84, 0x64, 0x82, 0x48, 0x50, 0x9f,
+//		0x1b, 0xc1, 0x8b, 0xc6, 0xf0, 0xb0, 0xd0, 0xb8,
+//		0x60, 0x6a, 0x64, 0x3e, 0xff, 0x61, 0xd6, 0x11,
+//		0xae, 0x84, 0xe6, 0xfb, 0xd4, 0xa2, 0x68, 0x31,
+//		0x65, 0x70, 0x6b, 0xd6, 0xfd, 0x48, 0xb3, 0x34,
+//	}
+//	
+//	// ...
+//	
+//	err := kernel.Scan(p)
+func (receiver *Kernel) Scan(src interface{}) error {
+	if nil == receiver {
+		return errNilReceiver
+	}
+
+	switch casted := src.(type) {
+	case []byte:
+		return receiver.UnmarshalBinary(casted)
+	case string:
+		var p []byte = []byte(casted)
+
+		return receiver.UnmarshalBinary(p)
+	case Kernel:
+		return receiver.UnmarshalBinary(casted.Bytes())
+	case *Kernel:
+		return receiver.UnmarshalBinary(casted.Bytes())
+	default:
+		return fmt.Errorf("krnl: unsupport type to scan from — %T", src)
+	}
+}
