@@ -146,7 +146,7 @@ func TestKernel_Parse_base64_failure(t *testing.T) {
 		if nil == err {
 			t.Errorf("For test #%d, expected an error but did not actually get one.", testNumber)
 			t.Logf("SOURCE: %q", test.Src)
-			t.Logf("ERROR: %s", err)
+			t.Logf("ERROR: %v", err)
 			continue
 		}
 	}
