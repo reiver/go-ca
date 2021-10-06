@@ -43,9 +43,6 @@ func (receiver *Kernel) Parse(value string, format string) error {
 	case "hexadecimal":
 		return receiver.parse_hexadecimal(value)
 
-	case "md5":
-		return receiver.parse_md5(value)
-
 	default:
 		return errorf("unsupported format — %q", format)
 	}
