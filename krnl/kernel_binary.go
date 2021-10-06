@@ -1,9 +1,5 @@
 package krnl
 
-import (
-	"fmt"
-)
-
 // MarshalBinary returns the value of Kernel as a []byte.
 //
 // MarshalBinary also makes krnl.Kernel fit the encoding.BinaryMarshaler interface.
@@ -45,7 +41,7 @@ func (receiver *Kernel) UnmarshalBinary(p []byte) error {
 	maxLength := len(receiver.storage)
 
 	if actualLength > maxLength {
-		return fmt.Errorf("krnl: source []byte too big — max_length=%d actual_length=%d", maxLength, actualLength)
+		return errorf("source []byte too big — max_length=%d actual_length=%d", maxLength, actualLength)
 	}
 
 	receiver.loaded = true

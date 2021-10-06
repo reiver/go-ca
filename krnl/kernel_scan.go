@@ -1,9 +1,5 @@
 package krnl
 
-import (
-	"fmt"
-)
-
 // Scan assigns a value to a kernel.
 //
 // Scan accepted the following types for 'src':
@@ -51,6 +47,6 @@ func (receiver *Kernel) Scan(src interface{}) error {
 	case *Kernel:
 		return receiver.UnmarshalBinary(casted.Bytes())
 	default:
-		return fmt.Errorf("krnl: unsupport type to scan from — %T", src)
+		return errorf("unsupport type to scan from — %T", src)
 	}
 }

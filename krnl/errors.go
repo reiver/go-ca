@@ -1,11 +1,7 @@
 package krnl
 
-import (
-	"errors"
-)
-
 var (
-	errInternalError = errors.New("krnl: internal error")
-	errNilReceiver   = errors.New("krnl: nil receiver")
-	errNothing       = errors.New("krnl: nothing")
+	errInternalError = errorf("internal error")
+	errNilReceiver   = errorf("nil receiver")
+	errNothing       = errorf("nothing")
 )

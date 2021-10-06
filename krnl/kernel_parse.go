@@ -1,9 +1,5 @@
 package krnl
 
-import (
-	"fmt"
-)
-
 // Parse loads Kernel with the value parsed from ‘value’ using the parsing algoritm specified by ‘format’.
 //
 // For example:
@@ -51,6 +47,6 @@ func (receiver *Kernel) Parse(value string, format string) error {
 		return receiver.parse_md5(value)
 
 	default:
-		return fmt.Errorf("krnl: unsupported format — %q", format)
+		return errorf("unsupported format — %q", format)
 	}
 }
